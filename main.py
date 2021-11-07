@@ -23,5 +23,8 @@ images = []
 for launch in launches:
     images = launch['links']['flickr']['original']
     if images:
-        print(images)
+        for image_num, image_link in enumerate(images):
+            image_name = f'spacex{image_num}.jpg'
+            image_path = os.path.join('images', image_name)
+            download_image(image_link, image_path)
         break
