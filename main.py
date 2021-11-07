@@ -14,8 +14,14 @@ def download_image(image_url, image_path):
         file.write(response.content)
 
 
-url = 'https://upload.wikimedia.org/wikipedia/commons/3/3f/HST-SM4.jpeg'
-filename = 'hubble.jpeg'
-file_path = 'images'
+launches_url = 'https://api.spacexdata.com/v4/launches'
+response = requests.get(launches_url)
+response.raise_for_status()
+launches = response.json()
 
-download_image(url, os.path.join(file_path, filename))
+images = []
+for launch in launches:
+    images = launch['links']['flickr']['original']
+    if images:
+        print(images)
+        break
