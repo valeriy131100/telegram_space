@@ -39,23 +39,28 @@ def fetch_spacex_last_launch():
             return
 
 
-def fetch_nasa_apod(token):
-    apod_url = 'https://api.nasa.gov/planetary/apod'
+def fetch_nasa_apods(token, count):
+    images_url = 'https://api.nasa.gov/planetary/apod'
     params = {
-        'api_key': token
+        'api_key': token,
+        'count': count
     }
-    response = requests.get(apod_url, params=params)
+    response = requests.get(images_url, params=params)
     response.raise_for_status()
-    image_link = response.json()['url']
 
-    return image_link
-
+    images = response.json()
+    for image_num, image in enumerate(images):
+        image_link = image['url']
+        image_extension = get_url_file_extension(image_link)
+        image_name = f'nasa{image_num}{image_extension}'
+        image_path = os.path.join('images', image_name)
+        download_image(image_link, image_path)
 
 
 if __name__ == '__main__':
     load_dotenv()
     nasa_token = os.getenv('NASA_TOKEN')
 
-    print(get_url_file_extension("https://example.com/txt/hello%20world.txt?v=9#python"))
+    print(fetch_nasa_apods(nasa_token, 30))
 
 
