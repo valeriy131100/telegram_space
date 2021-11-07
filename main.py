@@ -1,6 +1,7 @@
 import requests
 import os
 import urllib.parse
+from datetime import datetime
 from dotenv import load_dotenv
 from pathlib import Path
 
@@ -12,8 +13,8 @@ def get_url_file_extension(url):
     return extension
 
 
-def download_image(image_url, image_path):
-    response = requests.get(image_url)
+def download_image(image_url, image_path, http_params=None):
+    response = requests.get(image_url, params=http_params)
     response.raise_for_status()
 
     image_dirname = os.path.dirname(image_path)
@@ -57,10 +58,28 @@ def fetch_nasa_apods(token, count):
         download_image(image_link, image_path)
 
 
+def fetch_nasa_epic(token, count):
+    epics_url = 'https://api.nasa.gov/EPIC/api/natural/images'
+    params = {
+        'api_key': token
+    }
+    response = requests.get(epics_url, params=params)
+    response.raise_for_status()
+
+    epics = response.json()[0:count]
+    for epic in epics:
+        image_name = f'{epic["image"]}.png'
+        epic_date = datetime.fromisoformat(epic['date'])
+        epic_date_formatted = epic_date.strftime('%Y/%m/%d')  # YYYY/MM/DD
+        epic_image_url = f'https://api.nasa.gov/EPIC/archive/natural/{epic_date_formatted}/png/{image_name}'
+        image_path = os.path.join('images', image_name)
+        download_image(epic_image_url, image_path, http_params=params)
+
+
 if __name__ == '__main__':
     load_dotenv()
     nasa_token = os.getenv('NASA_TOKEN')
 
-    print(fetch_nasa_apods(nasa_token, 30))
+    fetch_nasa_epic(nasa_token, 5)
 
 
