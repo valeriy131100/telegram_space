@@ -1,5 +1,6 @@
 import requests
 import os
+from dotenv import load_dotenv
 from pathlib import Path
 
 
@@ -30,4 +31,22 @@ def fetch_spacex_last_launch():
             return
 
 
-fetch_spacex_last_launch()
+def fetch_nasa_apod(token):
+    apod_url = 'https://api.nasa.gov/planetary/apod'
+    params = {
+        'api_key': token
+    }
+    response = requests.get(apod_url, params=params)
+    response.raise_for_status()
+    image_link = response.json()['url']
+
+    return image_link
+
+
+
+if __name__ == '__main__':
+    load_dotenv()
+    nasa_token = os.getenv('NASA_TOKEN')
+    print(fetch_nasa_apod(nasa_token))
+
+
