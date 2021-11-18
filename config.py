@@ -1,11 +1,11 @@
 import os
 from dotenv import load_dotenv
-from file_workers import create_path_if_not_exists
+from pathlib import Path
 
 load_dotenv()
 
 images_folder = os.getenv('IMAGES_FOLDER', default='images')
-create_path_if_not_exists(images_folder)
+Path(images_folder).mkdir(parents=True, exist_ok=True)
 
 telegram_token = os.getenv('TELEGRAM_TOKEN')
 telegram_channel_name = os.getenv('TELEGRAM_CHANNEL_NAME')
