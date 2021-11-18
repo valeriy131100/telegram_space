@@ -1,6 +1,6 @@
 import requests
 import os
-from utils import download_image
+from file_workers import download_image
 
 
 def fetch_spacex_last_launch():

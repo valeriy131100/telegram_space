@@ -2,7 +2,7 @@ import requests
 import os
 from datetime import datetime
 from dotenv import load_dotenv
-from utils import download_image, get_url_file_extension
+from file_workers import download_image, get_url_file_extension
 
 
 def fetch_nasa_apods(token, count):
