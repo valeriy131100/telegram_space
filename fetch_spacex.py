@@ -10,7 +10,12 @@ def fetch_spacex_last_launch(images_folder_path):
     response.raise_for_status()
     launches = response.json()
 
-    for launch in reversed(launches):
+    sorted_launches = sorted(
+        launches,
+        key=(lambda launch: launch['date_utc'])
+    )
+
+    for launch in reversed(sorted_launches):
         images = launch['links']['flickr']['original']
         if images:
             for image_num, image_link in enumerate(images):
