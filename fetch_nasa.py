@@ -35,8 +35,8 @@ def fetch_nasa_epic(token, count, images_folder_path):
     for epic in epics:
         image_name = f'{epic["image"]}.png'
         epic_date = datetime.fromisoformat(epic['date'])
-        epic_date_formatted = epic_date.strftime('%Y/%m/%d')  # YYYY/MM/DD
-        epic_image_url = f'https://api.nasa.gov/EPIC/archive/natural/{epic_date_formatted}/png/{image_name}'
+        formatted_epic_date = epic_date.strftime('%Y/%m/%d')  # YYYY/MM/DD
+        epic_image_url = f'https://api.nasa.gov/EPIC/archive/natural/{formatted_epic_date}/png/{image_name}'
         image_path = os.path.join(images_folder_path, image_name)
         download_image(epic_image_url, image_path, http_params=params)
 
