@@ -17,6 +17,8 @@ def fetch_nasa_apods(token, count, images_folder_path):
     images = response.json()
     for image_num, image in enumerate(images):
         image_link = image['url']
+        if 'www.youtube.com' in image_link:
+            continue
         image_extension = get_url_file_extension(image_link)
         image_name = f'nasa{image_num}{image_extension}'
         image_path = os.path.join(images_folder_path, image_name)
