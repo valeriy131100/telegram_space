@@ -1,5 +1,3 @@
-import os
-from dotenv import load_dotenv
 from bot import run_bot
 from fetch_nasa import fetch_nasa_epic, fetch_nasa_apods
 from fetch_spacex import fetch_spacex_last_launch
