@@ -11,7 +11,7 @@ def run_bot(token, post_latency, channel_name, images_folder_path):
     while True:
         _, _, images = next(os.walk(images_folder_path))
         image_filename = random.choice(images)
-        image_path = os.path.join('images', image_filename)
+        image_path = os.path.join(images_folder_path, image_filename)
         with open(image_path, 'rb') as image_file:
             bot.send_photo(chat_id=channel_name, photo=image_file)
 
