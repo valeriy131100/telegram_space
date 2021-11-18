@@ -1,6 +1,7 @@
 import requests
 import os
 from file_workers import download_image
+from config import images_folder
 
 
 def fetch_spacex_last_launch(images_folder_path):
@@ -20,5 +21,4 @@ def fetch_spacex_last_launch(images_folder_path):
 
 
 if __name__ == '__main__':
-    images_folder = os.getenv('IMAGES_FOLDER', 'images')
     fetch_spacex_last_launch(images_folder)

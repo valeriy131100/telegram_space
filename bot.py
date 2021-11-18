@@ -2,7 +2,7 @@ import os
 import random
 import time
 import telegram
-from dotenv import load_dotenv
+from config import images_folder, telegram_token, telegram_channel_name, latency
 
 
 def run_bot(token, post_latency, channel_name, images_folder_path):
@@ -19,11 +19,4 @@ def run_bot(token, post_latency, channel_name, images_folder_path):
 
 
 if __name__ == '__main__':
-    load_dotenv()
-    images_folder = os.getenv('IMAGES_FOLDER')
-    telegram_token = os.getenv('TELEGRAM_TOKEN')
-    telegram_channel_name = os.getenv('TELEGRAM_CHANNEL_NAME')
-    s_latency = os.getenv('TELEGRAM_POSTING_LATENCY', default=str(60*60*24))
-    latency = int(s_latency)
-
     run_bot(telegram_token, latency, telegram_channel_name, images_folder)

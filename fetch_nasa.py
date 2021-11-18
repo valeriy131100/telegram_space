@@ -1,8 +1,8 @@
 import requests
 import os
 from datetime import datetime
-from dotenv import load_dotenv
 from file_workers import download_image, get_url_file_extension
+from config import nasa_token, images_folder
 
 
 def fetch_nasa_apods(token, count, images_folder_path):
@@ -42,8 +42,5 @@ def fetch_nasa_epic(token, count, images_folder_path):
 
 
 if __name__ == '__main__':
-    load_dotenv()
-    nasa_token = os.getenv('NASA_TOKEN')
-    images_folder = os.getenv('IMAGES_FOLDER', 'images')
     fetch_nasa_apods(nasa_token, 40, images_folder)
     fetch_nasa_epic(nasa_token, 5, images_folder)
