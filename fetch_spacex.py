@@ -9,7 +9,7 @@ def fetch_spacex_last_launch():
     response.raise_for_status()
     launches = response.json()
 
-    for launch in launches:
+    for launch in reversed(launches):
         images = launch['links']['flickr']['original']
         if images:
             for image_num, image_link in enumerate(images):
