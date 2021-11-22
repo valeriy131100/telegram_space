@@ -1,5 +1,6 @@
 import requests
 import os
+from pathlib import Path
 from file_workers import download_image
 from config import images_folder
 
@@ -26,4 +27,5 @@ def fetch_spacex_last_launch(images_folder_path):
 
 
 if __name__ == '__main__':
+    Path(images_folder).mkdir(parents=True, exist_ok=True)
     fetch_spacex_last_launch(images_folder)
