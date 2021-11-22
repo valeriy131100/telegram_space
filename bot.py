@@ -5,7 +5,7 @@ import telegram
 from config import images_folder, telegram_token, telegram_channel_name, latency
 
 
-def run_bot(token, post_latency, channel_name, images_folder_path):
+def start_images_posting(token, post_latency, channel_name, images_folder_path):
     bot = telegram.Bot(token=token)
 
     while True:
@@ -19,4 +19,4 @@ def run_bot(token, post_latency, channel_name, images_folder_path):
 
 
 if __name__ == '__main__':
-    run_bot(telegram_token, latency, telegram_channel_name, images_folder)
+    start_images_posting(telegram_token, latency, telegram_channel_name, images_folder)
